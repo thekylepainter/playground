@@ -1,0 +1,50 @@
+.todo-container {
+  width: 800px;
+
+  .todo-form {
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%;
+
+    input {
+      border: solid 1px #cecece;
+      border-radius: 4px;
+      display: inline-block;
+      height: 30px;
+      padding: 0 30px 0 8px;
+      width: 100%;
+
+      &:focus {
+        border: solid 1px #abd1ff;
+        box-shadow: 0 0 4px 1px #52a0ff;
+        outline: none;
+      }
+    }
+
+    a {
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 30px;
+      padding: 0 8px;
+      position: absolute;
+      right: 0;
+
+      &:hover,
+      &:focus {
+        outline: none;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .todo-list {
+    list-style: none;
+    padding: 0 9px;
+    margin: 0 0 5px;
+    line-height: 40px;
+
+    li:not(:last-child) {
+      border-bottom: solid 1px #CECECE;
+    }
+  }
+}

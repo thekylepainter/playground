@@ -1,14 +1,17 @@
-var path = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-var config = {
+let config = {
     entry: {
-        "js/bundle": path.resolve(__dirname, 'public/app/app.js'),
-        "react/js/bundle": path.resolve(__dirname, 'public/react/jsx/index.jsx')
+        ".": path.resolve(__dirname, 'public/app/app.js'),
+        "react": path.resolve(__dirname, 'public/react/jsx/todo/todo-app.jsx')
     },
     output: {
         path: path.join(__dirname, "public"),
-        filename: "[name].js"
+        filename: "[name]/js/bundle.js"
+    },
+    resolve: {
+        extensions: ['.js', '.jsx']
     },
     module : {
         loaders : [
@@ -25,7 +28,7 @@ var config = {
     },
     plugins: [
         new ExtractTextPlugin({
-            filename: '../css/style.css',
+            filename: '[name]/css/style.css',
             allChunks: true
         })
     ]
