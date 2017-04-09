@@ -7,14 +7,27 @@ import Todo from './todo';
 class TodoList extends React.Component {
     constructor(props) {
         super(props);
-        this.todos = props.todos;
         this.remove = props.remove;
+
+        this.state = {
+            todos: props.todos
+        }
+    }
+
+    /**
+     * We need to listen for whenver the props change, so we can explicitly tell this component
+     * to set a new state, which will in effect re-render the component
+     *
+     * @param props The new props that are coming into this component
+     */
+    componentWillReceiveProps(props) {
+        this.setState({todos: props.todos});
     }
 
     render() {
         // Map through the todos
-        const todoNode = this.todos.map((todo) => {
-            return (<Todo todo={todo} key={todo.id} remove={this.remove}/>)
+        const todoNode = this.state.todos.map((todo, index) => {
+            return (<Todo todo={todo} key={index} remove={this.remove}/>)
         });
 
         return (
