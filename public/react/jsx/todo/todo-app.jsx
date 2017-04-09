@@ -3,19 +3,25 @@ import {render} from 'react-dom';
 import TodoForm from './todo-form';
 import TodoList from './todo-list';
 
-let id = 0;
-
 /**
  * Application class to initialise the Todo component.
  */
 class TodoApp extends React.Component{
-    constructor(props){
-        // Pass props to parent class
+    constructor(props) {
         super(props);
+
         // Set initial state
         this.state = {
             data: []
-        }
+        };
+
+        // Mock api url
+        this.apiUrl = "http://58e8712d43e10712000e6397.mockapi.io/todos";
+    }
+
+    // Lifecycle method
+    componentDidMount() {
+        this._getData();
     }
 
     /**
@@ -23,13 +29,23 @@ class TodoApp extends React.Component{
      *
      * @param {string} val - Todo message
      */
-    addTodo(val){
-        // Assemble data
-        const todo = {text: val, id: id++};
-        // Update data
-        this.state.data.push(todo);
-        // Update state
-        this.setState({data: this.state.data});
+    addTodo(val) {
+        // Create a request object to post our todo message
+        let request = {
+            method: 'post',
+            body: JSON.stringify({text: val}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        //noinspection JSUnresolvedFunction
+        fetch(this.apiUrl, request)
+            .then(res => res.json())
+            .then(data => {
+                // Update state
+                this.setState({data: this.state.data.concat([data])});
+            });
     }
 
     /**
@@ -37,17 +53,42 @@ class TodoApp extends React.Component{
      *
      * @param {Number} id - Id of the todo to remove
      */
-    handleRemove(id){
+    handleRemove(id) {
         // Filter all todos except the one to be removed
         const remainder = this.state.data.filter((todo) => {
             if(todo.id !== id) return todo;
         });
 
-        // Update state with filter
-        this.setState({data: remainder});
+        //noinspection JSUnresolvedFunction
+        fetch(this.apiUrl, {method: 'delete'})
+            .then(() => {
+                // Update state with filter
+                this.setState({data: remainder});
+            });
+
     }
 
-    render(){
+    /**
+     * Fetch todos from our mock api and update the state.
+     * @private
+     */
+    _getData() {
+        //noinspection JSUnresolvedFunction
+        fetch(this.apiUrl)
+            .then(res => res.json())
+            .then(data => {
+                let todo = {text: 'Todo message'};
+
+                // Works
+                this.state.data.push(todo);
+                this.setState({data: this.state.data});
+
+                // Doesn't work
+                this.setState({data: [todo]});
+            });
+    }
+
+    render() {
         return (
             <div className="todo-container">
                 <TodoForm addTodo={this.addTodo.bind(this)} />

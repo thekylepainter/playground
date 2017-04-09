@@ -23,6 +23,10 @@ let config = {
             {
                 test: /\.scss$/,
                 loader: ExtractTextPlugin.extract('css-loader!sass-loader')
+            },
+            {
+                test: /\.svg$/,
+                loader: 'babel-loader!svg-react-loader'
             }
         ]
     },

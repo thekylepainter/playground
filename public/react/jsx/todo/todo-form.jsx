@@ -1,4 +1,5 @@
 import React from 'react';
+import IconRemove from '../../icons/add.svg'
 
 /**
  * Allow a user to write a message and add it to the list of todos.
@@ -60,7 +61,7 @@ class TodoForm extends React.Component {
         return (
             <div className="todo-form">
                 <input type="text" ref={(input) => this.input = input} value={this.state.value} onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} />
-                <a onClick={this.handleClick.bind(this)}>+</a>
+                <IconRemove onClick={this.handleClick.bind(this)} />
             </div>
         );
     }
