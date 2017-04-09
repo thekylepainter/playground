@@ -51,16 +51,14 @@ class TodoApp extends React.Component{
     /**
      * Remove the todo message matching the provided id.
      *
-     * @param {Number} id - Id of the todo to remove
+     * @param {String} id - Id of the todo to remove
      */
     handleRemove(id) {
         // Filter all todos except the one to be removed
-        const remainder = this.state.data.filter((todo) => {
-            if(todo.id !== id) return todo;
-        });
+        const remainder = this.state.data.filter(todo => todo.id !== id);
 
         //noinspection JSUnresolvedFunction
-        fetch(this.apiUrl, {method: 'delete'})
+        fetch(this.apiUrl + '/' + id, {method: 'delete'})
             .then(() => {
                 // Update state with filter
                 this.setState({data: remainder});
@@ -73,14 +71,11 @@ class TodoApp extends React.Component{
      * @private
      */
     _getData() {
-        //noinspection JSUnresolvedFunction,JSUnusedLocalSymbols
+        //noinspection JSUnresolvedFunction
         fetch(this.apiUrl)
             .then(res => res.json())
             .then(data => {
-                let todo = {text: 'Todo message'};
-
-                // Works
-                this.setState({data: [todo]});
+                this.setState({data: data});
             });
     }
 
