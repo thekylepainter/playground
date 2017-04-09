@@ -73,17 +73,13 @@ class TodoApp extends React.Component{
      * @private
      */
     _getData() {
-        //noinspection JSUnresolvedFunction
+        //noinspection JSUnresolvedFunction,JSUnusedLocalSymbols
         fetch(this.apiUrl)
             .then(res => res.json())
             .then(data => {
                 let todo = {text: 'Todo message'};
 
                 // Works
-                this.state.data.push(todo);
-                this.setState({data: this.state.data});
-
-                // Doesn't work
                 this.setState({data: [todo]});
             });
     }
