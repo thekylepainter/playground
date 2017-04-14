@@ -8,6 +8,7 @@ class TodoList extends React.Component {
     constructor(props) {
         super(props);
         this.todos = props.todos;
+        this.save = props.save;
         this.remove = props.remove;
     }
 
@@ -23,7 +24,7 @@ class TodoList extends React.Component {
     render() {
         // Map through the todos
         const todoNode = this.todos.map(todo =>
-            (<Todo todo={todo} key={todo.id} remove={this.remove}/>)
+            (<Todo todo={todo} key={todo.id} save={this.save} remove={this.remove}/>)
         );
 
         return (

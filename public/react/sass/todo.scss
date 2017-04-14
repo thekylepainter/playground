@@ -7,34 +7,29 @@
     width: 100%;
 
     input {
-      border: solid 1px #cecece;
-      border-radius: 4px;
-      display: inline-block;
-      height: 30px;
       padding: 0 35px 0 8px;
-      width: 100%;
-
-      &:focus {
-        border: solid 1px #abd1ff;
-        box-shadow: 0 0 4px 1px #52a0ff;
-        outline: none;
-      }
     }
 
-    svg {
-      cursor: pointer;
-      fill: #333333;
+    a {
       height: 30px;
-      margin-right: 5px;
       position: absolute;
-      right: 0;
-      width: 30px;
+      right: 9px;
 
-      &:hover,
-      &:focus {
+      &:hover svg {
         fill: #888888;
+      }
+
+      &:focus {
         outline: none;
-        text-decoration: none;
+
+        svg {
+          fill: #52a0ff;
+        }
+      }
+
+      svg {
+        fill: #333333;
+        height: 100%;
       }
     }
   }
@@ -43,10 +38,40 @@
     list-style: none;
     padding: 0 9px;
     margin: 0 0 5px;
-    line-height: 40px;
+    line-height: 30px;
 
-    li:not(:last-child) {
-      border-bottom: solid 1px #CECECE;
+    li {
+      display: flex;
+      padding: 5px 0;
+
+      &:not(:last-child) {
+        border-bottom: solid 1px #CECECE;
+      }
+
+      .text {
+        margin: auto auto auto 0;
+      }
+
+      a {
+        margin: auto 0 auto 10px;
+
+        &:hover svg {
+          fill: #888888;
+        }
+
+        &:focus {
+          outline: none;
+
+          svg {
+            fill: #52a0ff;
+          }
+        }
+
+        svg {
+          fill: #333333;
+          vertical-align: middle;
+        }
+      }
     }
   }
 }

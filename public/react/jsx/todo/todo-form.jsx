@@ -1,10 +1,10 @@
 import React from 'react';
-import IconRemove from '../../icons/add.svg'
+import IconAdd from '../../icons/add.svg'
 
 /**
  * Allow a user to write a message and add it to the list of todos.
  */
-class TodoForm extends React.Component {
+class TodoForm extends React.PureComponent {
     constructor(props) {
         super(props);
         this.addTodo = props.addTodo;
@@ -43,6 +43,7 @@ class TodoForm extends React.Component {
      * @param {Event} event - DOM key press event
      */
     handleKeyPress(event) {
+        //noinspection JSUnresolvedVariable
         if (event.key === 'Enter') {
             this._submitTodo();
         }
@@ -50,6 +51,7 @@ class TodoForm extends React.Component {
 
     /**
      * Call the provided method to add the message to the list of todos.
+     *
      * @private
      */
     _submitTodo() {
@@ -60,8 +62,8 @@ class TodoForm extends React.Component {
     render() {
         return (
             <div className="todo-form">
-                <input type="text" ref={(input) => this.input = input} value={this.state.value} onChange={this.handleChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)} />
-                <IconRemove onClick={this.handleClick.bind(this)} />
+                <input type="text" ref={(input) => this.input = input} value={this.state.value} onChange={this.handleChange.bind(this)} onKeyDown={this.handleKeyPress.bind(this)} />
+                <a href="javascript:" onClick={this.handleClick.bind(this)}><IconAdd/></a>
             </div>
         );
     }

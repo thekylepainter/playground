@@ -1,4 +1,3 @@
-
 .content {
   padding: 20px;
 }
@@ -28,5 +27,20 @@
   .nav > li.active > a {
     background-color: #afb5b9;
     color: #ffffff;
+  }
+}
+
+input {
+  border: solid 1px #cecece;
+  border-radius: 4px;
+  display: inline-block;
+  height: 30px;
+  padding: 0 8px;
+  width: 100%;
+
+  &:focus {
+    border: solid 1px #abd1ff;
+    box-shadow: 0 0 4px 1px #52a0ff;
+    outline: none;
   }
 }
