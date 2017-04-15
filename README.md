@@ -4,7 +4,8 @@ Project to demonstrate and experiment with multiple front end JS frameworks.
 
 ## Built With
 
-* [React](https://facebook.github.io/react/) - The web framework used
+* [React](https://facebook.github.io/react/) - Web framework to implement components
+* [Bootstrap](http://getbootstrap.com/) - UI framework for rapid page design and prototyping
 * [Webpack](https://webpack.js.org/) - Module bundler
 
 ## Authors

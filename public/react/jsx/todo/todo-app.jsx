@@ -6,6 +6,14 @@ import TodoList from './todo-list';
 require('../../sass/todo.scss');
 
 /**
+ * @typedef {Object} Todo - Represents a object to be displayed in a list of todo items
+ * @property {string} id - Identifier for the todo item
+ * @property {string} text - Text to display for the todo item
+ * @property {boolean} isComplete - Flag to mark a todo item as completed
+ * @property {Number} createdAt - Timestamp when the todo item was created as a number
+ */
+
+/**
  * Application class to initialise the Todo component.
  */
 class TodoApp extends React.Component{
@@ -46,8 +54,9 @@ class TodoApp extends React.Component{
         return fetch(this.apiUrl, request)
             .then(res => res.json())
             .then(data => {
+                let todos = [...this.state.data, data];
                 // Update state
-                this.setState({data: [...this.state.data, data]});
+                this.setState({data: todos.sort(TodoApp._sortData)});
             });
     }
 
@@ -71,9 +80,9 @@ class TodoApp extends React.Component{
     }
 
     /**
-     * Call the provided method to add the message to the list of todos.
+     * Save the provided todo message.
      *
-     * @private
+     * @param {Todo} todoToSave - Todo message to save
      * @return {Promise}
      */
     handleSave(todoToSave) {
@@ -95,7 +104,7 @@ class TodoApp extends React.Component{
                 });
 
                 // Update state
-                this.setState({data: todos});
+                this.setState({data: todos.sort(TodoApp._sortData)});
             });
     }
 
@@ -109,8 +118,27 @@ class TodoApp extends React.Component{
         fetch(this.apiUrl)
             .then(res => res.json())
             .then(data => {
-                this.setState({data: data});
+                this.setState({data: data.sort(TodoApp._sortData)});
             });
+    }
+
+    /**
+     * Sorting function for a list of todo messages. Incomplete todo's should show before complete ones, sorting on
+     * created time by default.
+     *
+     * @param {Todo} a - Todo message
+     * @param {Todo} b - Todo message
+     * @return {number}
+     * @private
+     */
+    static _sortData(a, b) {
+        if (a.isComplete && !b.isComplete) {
+            return 1
+        } else if (!a.isComplete && b.isComplete) {
+            return -1;
+        } else {
+            return a.createdAt - b.createdAt;
+        }
     }
 
     render() {

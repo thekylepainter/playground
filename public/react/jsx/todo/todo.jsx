@@ -14,7 +14,8 @@ class Todo extends React.PureComponent {
 
         this.state = {
             isEditing: false,
-            value: this.todo.text
+            isComplete: this.todo.isComplete,
+            text: this.todo.text
         }
     }
 
@@ -42,7 +43,13 @@ class Todo extends React.PureComponent {
      * @param {Event} event - DOM change event
      */
     handleChange(event) {
-        this.setState({value: event.target.value});
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
     }
 
     /**
@@ -57,13 +64,27 @@ class Todo extends React.PureComponent {
             this._saveTodo();
         }
         // On escape we toggle off the edit state and reset the input value
-        //noinspection JSUnresolvedVariable
         else if (event.key === 'Escape') {
             this.setState({
                 isEditing: false,
-                value: this.todo.text
+                text: this.todo.text
             });
         }
+    }
+
+    /**
+     * Update the isComplete flag for the todo message and save the change.
+     *
+     * @param {Event} event - DOM change event
+     */
+    handleCheck(event) {
+        // Call the change function to update the state value
+        this.handleChange(event);
+
+        this.todo.isComplete = event.target.checked;
+
+        // Save the updated todo
+        this.save(this.todo)
     }
 
     /**
@@ -72,7 +93,7 @@ class Todo extends React.PureComponent {
      * @private
      */
     _saveTodo() {
-        this.todo.text = this.state.value;
+        this.todo.text = this.state.text;
 
         // Save the updated todo then toggle off the edit state
         this.save(this.todo)
@@ -86,13 +107,14 @@ class Todo extends React.PureComponent {
         if (this.state.isEditing) {
             result =
                 <li>
-                    <input type="text" ref={(input) => this.input = input} value={this.state.value} onChange={this.handleChange.bind(this)} onKeyDown={this.handleKeyPress.bind(this)} />
+                    <input type="text" name="text" ref={(input) => this.input = input} value={this.state.text} onChange={this.handleChange.bind(this)} onKeyDown={this.handleKeyPress.bind(this)} />
                 </li>;
         }
         // Otherwise render the todo item
         else {
             result =
                 <li>
+                    <input type="checkbox" name="isComplete" checked={this.state.isComplete} onChange={this.handleCheck.bind(this)}/>
                     <span className="text">{this.todo.text}</span>
                     <a href="javascript:" onClick={this.toggleEdit.bind(this)}><IconEdit/></a>
                     <a href="javascript:" onClick={() => this.remove(this.todo.id)}><IconDelete/></a>
