@@ -165,7 +165,7 @@ class TodoApp extends React.Component{
                 <h1>To Do List</h1>
                 <p className="lead">A simple list in which a user can add, edit and remove messages.</p>
 
-                <div className="todo-container">
+                <div className="component-container todo">
                     <TodoForm addTodo={this.addTodo.bind(this)} />
                     <TodoList todos={this.state.data} save={this.handleSave.bind(this)} remove={this.handleRemove.bind(this)}/>
                 </div>

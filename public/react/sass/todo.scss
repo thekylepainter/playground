@@ -1,19 +1,64 @@
-.todo-container {
+.component-container.todo {
   width: 800px;
+}
 
-  .todo-form {
-    margin-bottom: 10px;
-    position: relative;
-    width: 100%;
+.todo-form {
+  margin-bottom: 10px;
+  position: relative;
+  width: 100%;
 
-    input {
-      padding: 0 35px 0 8px;
+  input {
+    padding: 0 35px 0 8px;
+  }
+
+  a {
+    height: 30px;
+    position: absolute;
+    right: 9px;
+
+    &:hover svg {
+      fill: #888888;
+    }
+
+    &:focus {
+      outline: none;
+
+      svg {
+        fill: #52a0ff;
+      }
+    }
+
+    svg {
+      fill: #333333;
+      height: 100%;
+    }
+  }
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0 9px;
+  margin: 0 0 5px;
+  line-height: 30px;
+
+  li {
+    display: flex;
+    padding: 5px 0;
+
+    &:not(:last-child) {
+      border-bottom: solid 1px #CECECE;
+    }
+
+    input[type=checkbox] {
+      margin: auto 10px auto 0;
+    }
+
+    .text {
+      margin: auto auto auto 0;
     }
 
     a {
-      height: 30px;
-      position: absolute;
-      right: 9px;
+      margin: auto 0 auto 10px;
 
       &:hover svg {
         fill: #888888;
@@ -29,52 +74,7 @@
 
       svg {
         fill: #333333;
-        height: 100%;
-      }
-    }
-  }
-
-  .todo-list {
-    list-style: none;
-    padding: 0 9px;
-    margin: 0 0 5px;
-    line-height: 30px;
-
-    li {
-      display: flex;
-      padding: 5px 0;
-
-      &:not(:last-child) {
-        border-bottom: solid 1px #CECECE;
-      }
-
-      input[type=checkbox] {
-        margin: auto 10px auto 0;
-      }
-
-      .text {
-        margin: auto auto auto 0;
-      }
-
-      a {
-        margin: auto 0 auto 10px;
-
-        &:hover svg {
-          fill: #888888;
-        }
-
-        &:focus {
-          outline: none;
-
-          svg {
-            fill: #52a0ff;
-          }
-        }
-
-        svg {
-          fill: #333333;
-          vertical-align: middle;
-        }
+        vertical-align: middle;
       }
     }
   }
