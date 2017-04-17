@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Todo from './todo';
 
 /**
@@ -32,5 +33,13 @@ class TodoList extends React.Component {
         );
     }
 }
+
+// Define property data types for TodoList
+//noinspection JSUnresolvedFunction,JSUnresolvedVariable
+TodoList.propTypes = {
+    todos: PropTypes.arrayOf(PropTypes.object).isRequired,
+    save: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
+};
 
 export default TodoList;

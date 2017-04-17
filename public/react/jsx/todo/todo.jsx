@@ -1,5 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+//noinspection JSUnresolvedVariable
 import IconEdit from '../../icons/edit.svg'
+//noinspection JSUnresolvedVariable
 import IconDelete from '../../icons/delete.svg'
 
 /**
@@ -55,11 +58,10 @@ class Todo extends React.PureComponent {
     /**
      * Submit the todo message when the enter key is pressed.
      *
-     * @param {Event} event - DOM key press event
+     * @param {KeyboardEvent} event - DOM key press event
      */
     handleKeyPress(event) {
         // Save the todo message on enter
-        //noinspection JSUnresolvedVariable
         if (event.key === 'Enter') {
             this._saveTodo();
         }
@@ -124,5 +126,13 @@ class Todo extends React.PureComponent {
         return result;
     }
 }
+
+// Define property data types for Todo
+//noinspection JSUnresolvedVariable
+Todo.propTypes = {
+    todo: PropTypes.object.isRequired,
+    save: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
+};
 
 export default Todo;

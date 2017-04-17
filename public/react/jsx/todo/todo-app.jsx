@@ -2,6 +2,7 @@ import React from 'react';
 import TodoForm from './todo-form';
 import TodoList from './todo-list';
 
+// Base style for the todo component
 require('../../sass/todo.scss');
 
 /**

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+//noinspection JSUnresolvedVariable
 import IconAdd from '../../icons/add.svg'
 
 /**
@@ -68,5 +70,11 @@ class TodoForm extends React.PureComponent {
         );
     }
 }
+
+// Define property data types for TodoForm
+//noinspection JSUnresolvedVariable
+TodoForm.propTypes = {
+    addTodo: PropTypes.func.isRequired
+};
 
 export default TodoForm;

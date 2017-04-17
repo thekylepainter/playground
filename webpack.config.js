@@ -14,9 +14,15 @@ let config = {
         extensions: ['.js', '.jsx']
     },
     module : {
-        loaders : [
+        rules : [
             {
-                test : /\.jsx?/,
+                test: /\.jsx?$/,
+                include :  path.resolve(__dirname, 'public'),
+                loader: 'eslint-loader',
+                enforce: 'pre'
+            },
+            {
+                test : /\.jsx?$/,
                 include :  path.resolve(__dirname, 'public'),
                 loader : 'babel-loader'
             },
