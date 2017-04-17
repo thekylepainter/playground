@@ -4,7 +4,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 let config = {
     entry: {
         ".": path.resolve(__dirname, 'public/app/app.js'),
-        "react": path.resolve(__dirname, 'public/react/jsx/todo/todo-app.jsx')
+        "react": path.resolve(__dirname, 'public/react/jsx/app.jsx')
     },
     output: {
         path: path.join(__dirname, "public"),

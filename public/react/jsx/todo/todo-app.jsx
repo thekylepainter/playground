@@ -1,5 +1,4 @@
 import React from 'react';
-import {render} from 'react-dom';
 import TodoForm from './todo-form';
 import TodoList from './todo-list';
 
@@ -31,7 +30,13 @@ class TodoApp extends React.Component{
 
     // Lifecycle method
     componentDidMount() {
+        this._isMounted = true;
         this._getData();
+    }
+
+    // Lifecycle method
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     /**
@@ -54,9 +59,12 @@ class TodoApp extends React.Component{
         return fetch(this.apiUrl, request)
             .then(res => res.json())
             .then(data => {
+                // Prevent async responses when the component has unmounted
+                if (this._isMounted === false) { return; }
+
                 let todos = [...this.state.data, data];
                 // Update state
-                this.setState({data: todos.sort(TodoApp._sortData)});
+                this.setState({data: todos.sort(TodoApp.sortData)});
             });
     }
 
@@ -73,6 +81,9 @@ class TodoApp extends React.Component{
         //noinspection JSUnresolvedFunction
         return fetch(this.apiUrl + '/' + id, {method: 'delete'})
             .then(() => {
+                // Prevent async responses when the component has unmounted
+                if (this._isMounted === false) { return; }
+
                 // Update state with filter
                 this.setState({data: remainder});
             });
@@ -99,12 +110,15 @@ class TodoApp extends React.Component{
         return fetch(this.apiUrl + '/' + todoToSave.id, request)
             .then(res => res.json())
             .then(data => {
+                // Prevent async responses when the component has unmounted
+                if (this._isMounted === false) { return; }
+
                 let todos = this.state.data.map(function(todo) {
                     return todo.id === data.id ? data : todo;
                 });
 
                 // Update state
-                this.setState({data: todos.sort(TodoApp._sortData)});
+                this.setState({data: todos.sort(TodoApp.sortData)});
             });
     }
 
@@ -118,7 +132,10 @@ class TodoApp extends React.Component{
         fetch(this.apiUrl)
             .then(res => res.json())
             .then(data => {
-                this.setState({data: data.sort(TodoApp._sortData)});
+                // Prevent async responses when the component has unmounted
+                if (this._isMounted === false) { return; }
+
+                this.setState({data: data.sort(TodoApp.sortData)});
             });
     }
 
@@ -131,7 +148,7 @@ class TodoApp extends React.Component{
      * @return {number}
      * @private
      */
-    static _sortData(a, b) {
+    static sortData(a, b) {
         if (a.isComplete && !b.isComplete) {
             return 1
         } else if (!a.isComplete && b.isComplete) {
@@ -143,12 +160,17 @@ class TodoApp extends React.Component{
 
     render() {
         return (
-            <div className="todo-container">
-                <TodoForm addTodo={this.addTodo.bind(this)} />
-                <TodoList todos={this.state.data} save={this.handleSave.bind(this)} remove={this.handleRemove.bind(this)}/>
+            <div>
+                <h1>To Do List</h1>
+                <p className="lead">A simple list in which a user can add, edit and remove messages.</p>
+
+                <div className="todo-container">
+                    <TodoForm addTodo={this.addTodo.bind(this)} />
+                    <TodoList todos={this.state.data} save={this.handleSave.bind(this)} remove={this.handleRemove.bind(this)}/>
+                </div>
             </div>
         );
     }
 }
 
-render(<TodoApp />, document.getElementById('root'));
+export default TodoApp;

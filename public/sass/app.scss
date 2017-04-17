@@ -24,7 +24,7 @@
   background-color: #f5f5f5;
   border-right: 1px solid #eee;
 
-  .nav > li.active > a {
+  .nav > li > a.active  {
     background-color: #afb5b9;
     color: #ffffff;
   }
