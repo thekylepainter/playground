@@ -27,6 +27,11 @@ class TodoApp extends React.Component{
 
         // Mock api url
         this.apiUrl = "http://58e8712d43e10712000e6397.mockapi.io/todos";
+
+        // Bind the classes context to our prototyped functions
+        this.addTodo = this.addTodo.bind(this);
+        this.handleRemove = this.handleRemove.bind(this);
+        this.handleSave = this.handleSave.bind(this);
     }
 
     // Lifecycle method
@@ -166,8 +171,8 @@ class TodoApp extends React.Component{
                 <p className="lead">A simple list in which a user can add, edit and remove messages.</p>
 
                 <div className="component-container todo">
-                    <TodoForm addTodo={this.addTodo.bind(this)} />
-                    <TodoList todos={this.state.data} save={this.handleSave.bind(this)} remove={this.handleRemove.bind(this)}/>
+                    <TodoForm addTodo={this.addTodo} />
+                    <TodoList todos={this.state.data} save={this.handleSave} remove={this.handleRemove}/>
                 </div>
             </div>
         );

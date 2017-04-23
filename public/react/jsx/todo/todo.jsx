@@ -19,7 +19,13 @@ class Todo extends React.PureComponent {
             isEditing: false,
             isComplete: this.todo.isComplete,
             text: this.todo.text
-        }
+        };
+
+        // Bind the classes context to our prototyped functions
+        this.toggleEdit = this.toggleEdit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleCheck = this.handleCheck.bind(this);
     }
 
     /**
@@ -99,7 +105,7 @@ class Todo extends React.PureComponent {
 
         // Save the updated todo then toggle off the edit state
         this.save(this.todo)
-            .then(this.toggleEdit.bind(this));
+            .then(this.toggleEdit);
     }
 
     render() {
@@ -109,16 +115,16 @@ class Todo extends React.PureComponent {
         if (this.state.isEditing) {
             result =
                 <li>
-                    <input type="text" name="text" ref={(input) => this.input = input} value={this.state.text} onChange={this.handleChange.bind(this)} onKeyDown={this.handleKeyPress.bind(this)} />
+                    <input type="text" name="text" ref={(input) => this.input = input} value={this.state.text} onChange={this.handleChange} onKeyDown={this.handleKeyPress} />
                 </li>;
         }
         // Otherwise render the todo item
         else {
             result =
                 <li>
-                    <input type="checkbox" name="isComplete" checked={this.state.isComplete} onChange={this.handleCheck.bind(this)}/>
+                    <input type="checkbox" name="isComplete" checked={this.state.isComplete} onChange={this.handleCheck}/>
                     <span className="text">{this.todo.text}</span>
-                    <a href="javascript:" onClick={this.toggleEdit.bind(this)}><IconEdit/></a>
+                    <a href="javascript:" onClick={this.toggleEdit}><IconEdit/></a>
                     <a href="javascript:" onClick={() => this.remove(this.todo.id)}><IconDelete/></a>
                 </li>;
         }

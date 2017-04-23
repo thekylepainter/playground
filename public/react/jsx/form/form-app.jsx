@@ -10,6 +10,9 @@ require('../../sass/form.scss');
 class FormApp extends React.Component{
     constructor(props) {
         super(props);
+
+        // Bind the classes context to our prototyped functions
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     /**
@@ -24,7 +27,7 @@ class FormApp extends React.Component{
                 <p className="lead">Provides standard behaviour when validating and submitting forms.</p>
 
                 <div className="component-container form">
-                    <Form submit={this.handleSubmit.bind(this)} />
+                    <Form submit={this.handleSubmit} />
                 </div>
             </div>
         );

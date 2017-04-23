@@ -4,6 +4,13 @@
 
 form {
 
+  &.form-submitted {
+    .form-control-invalid {
+      background-color: #fdcfcf;
+      border-color: #bd7b7b;
+    }
+  }
+
   .form-row {
     display: flex;
     margin: 0 -8px 20px;

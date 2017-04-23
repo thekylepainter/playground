@@ -11,6 +11,11 @@ class TodoForm extends React.PureComponent {
         super(props);
         this.addTodo = props.addTodo;
         this.state = {value: ''};
+
+        // Bind the classes context to our prototyped functions
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     /**
@@ -64,8 +69,8 @@ class TodoForm extends React.PureComponent {
     render() {
         return (
             <div className="todo-form">
-                <input type="text" ref={(input) => this.input = input} value={this.state.value} onChange={this.handleChange.bind(this)} onKeyDown={this.handleKeyPress.bind(this)} />
-                <a href="javascript:" onClick={this.handleClick.bind(this)}><IconAdd/></a>
+                <input type="text" ref={(input) => this.input = input} value={this.state.value} onChange={this.handleChange} onKeyDown={this.handleKeyPress} />
+                <a href="javascript:" onClick={this.handleClick}><IconAdd/></a>
             </div>
         );
     }
